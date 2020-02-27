@@ -21,13 +21,13 @@ class UsersController < ApplicationController
         end
       else
         respond_to do |format|
-          flash.now[:alert] = "No users found"
+          flash.now[:alert] = "Couldn't find user"
           format.js { render partial: 'users/friend_result' }
         end
       end
     else
       respond_to do |format|
-        flash.now[:alert] = "Please input name or email"
+        flash.now[:alert] = "Please enter name or email to search"
         format.js { render partial: 'users/friend_result' }
       end
     end
