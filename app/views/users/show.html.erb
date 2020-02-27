@@ -1,0 +1,5 @@
+<h1><%= @user.full_name %>'s Portfolio</h1>
+
+<% if !@tracked_stocks.empty? %>
+  <%= render 'stocks/list' %>
+<% end %>

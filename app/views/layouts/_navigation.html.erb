@@ -11,9 +11,18 @@
           <li class="nav-item <%= 'active' if request.path == my_portfolio_path %>">
             <%= link_to 'My Portfolio', my_portfolio_path, class: "nav-link" %>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
+          <% if current_user.friends %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Friends
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <% current_user.friends.each do |friend| %>
+                  <%= link_to "#{friend.full_name}", user_path(friend), class: 'dropdown-item' %> 
+                <% end %>
+              </div>
+            </li>
+          <% end %>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Profile
