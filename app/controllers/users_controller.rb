@@ -13,8 +13,8 @@ class UsersController < ApplicationController
   end
 
   def search
-    if params[:input].present?
-      @users = User.search_email_or_name(params[:input])
+    if params[:friend].present?
+      @users = User.search_email_or_name(params[:friend])
       if !@users.empty?
         respond_to do |format|
           format.js { render partial: 'users/friend_result' }
