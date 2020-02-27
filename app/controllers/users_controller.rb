@@ -11,4 +11,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @tracked_stocks = @user.stocks
   end
+
+  def search_friend
+    if params[:input]
+      @users = User.search_email_or_name(params[:input])
+      redirect_to my_friends_path
+    else
+      redirect_to my_friends_path
+    end
+  end
 end

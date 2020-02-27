@@ -3,6 +3,12 @@ class User < ApplicationRecord
   has_many :stocks, through: :user_stocks
   has_many :friendships
   has_many :friends, through: :friendships
+  scope :search_email_or_name, ->(search_word) { 
+    where('email like ?', "%#{search_word}%")
+    .or(where('first_name like ?', "%#{search_word}%"))
+    .or(where('last_name like ?', "%#{search_word}%"))
+  }
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -26,5 +32,17 @@ class User < ApplicationRecord
   def full_name
     return "#{first_name} #{last_name}" if first_name || last_name
     "Anonymous"
+  end
+
+  def already_friend?(user)
+    friends.where(id: user.id).exists?
+  end
+
+  def under_friend_limit?
+    friends.count < 10
+  end
+
+  def can_add_friend?(user)
+    under_friend_limit? && !already_friend?(user)
   end
 end

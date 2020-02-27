@@ -1,0 +1,13 @@
+<div class="results-block">
+  <%= render 'layouts/messages' %>
+</div>
+
+
+<% if @users %>
+  <div class="card card-header results-block">
+    <% @users.each do |user| %>
+      <strong>Email: </strong><%= user.email %>
+      <br>
+    <% end %>
+  </div>
+<% end %>
