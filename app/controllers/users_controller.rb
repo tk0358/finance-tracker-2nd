@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     @tracked_stocks = @user.stocks
   end
 
-  def search_friend
+  def search
     if params[:input].present?
       @users = User.search_email_or_name(params[:input])
       if !@users.empty?
