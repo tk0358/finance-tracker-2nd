@@ -13,11 +13,23 @@ class UsersController < ApplicationController
   end
 
   def search_friend
-    if params[:input]
+    if params[:input].present?
       @users = User.search_email_or_name(params[:input])
-      redirect_to my_friends_path
+      if !@users.empty?
+        respond_to do |format|
+          format.js { render partial: 'users/friend_result' }
+        end
+      else
+        respond_to do |format|
+          flash.now[:alert] = "No users found"
+          format.js { render partial: 'users/friend_result' }
+        end
+      end
     else
-      redirect_to my_friends_path
+      respond_to do |format|
+        flash.now[:alert] = "Please input name or email"
+        format.js { render partial: 'users/friend_result' }
+      end
     end
   end
 end

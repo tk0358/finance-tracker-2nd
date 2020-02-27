@@ -3,10 +3,25 @@
 </div>
 
 
-<% if @users %>
+<% if !@users.empty? %>
   <div class="card card-header results-block">
     <% @users.each do |user| %>
       <strong>Email: </strong><%= user.email %>
+      <strong>First Name: </strong><%= user.first_name %>
+      <strong>Last Name: </strong><%= user.last_name %>
+      <% if current_user == user %>
+        <span class="badge badge-secondary">You</span>
+      <% elsif current_user.can_add_friend?(user) %>
+        <%= link_to 'Add friend', friendships_path(user: current_user, friend: user), 
+                                      class: "btn btn-sm btn-success", method: :post %>
+      <% else %>
+        <span class="badge badge-secondary">
+          <% if !current_user.under_friend_limit? %>
+            You have already 10 friends
+          <% end %>
+            Your friend
+        </span>
+      <% end %>
       <br>
     <% end %>
   </div>
