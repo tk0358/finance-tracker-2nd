@@ -1,0 +1,4 @@
+<%= @stock.last_price %>
+<%= link_to one_stock_reflesh_path(index: @index, ticker: @stock.ticker), class: 'refresh-icon' do  %>
+  <%= fa_icon 'refresh' %>
+<% end %>  

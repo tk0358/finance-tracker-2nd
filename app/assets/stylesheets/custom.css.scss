@@ -5,7 +5,7 @@
 // }
 
 .search-area {
-  padding-top: 50px;
+  padding-top: 30px;
 }
 
 .no-right-padding { padding-right: 0 !important; }
@@ -23,4 +23,18 @@
 .user-name {
   margin-top: 3.5%;
   margin-right: 5px;
+}
+
+.portfolio-title {
+  display: inline-block;
+}
+
+.btn-reflesh {
+  display: inline-block;
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+
+.price {
+  text-align: right;
 }

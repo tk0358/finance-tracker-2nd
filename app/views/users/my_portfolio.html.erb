@@ -1,4 +1,6 @@
-<h1>My Portfolio</h1>
+<h1 class='portfolio-title'>My Portfolio</h1>
+
+<%= link_to 'price reflesh', price_reflesh_path, remote: true, class: 'btn btn-primary btn-reflesh' %>
 
 <div class="search-area">
   <h3>Search Stocks</h3>
@@ -20,6 +22,8 @@
 <div id="results">
 </div>
 
-<% if !@tracked_stocks.empty? %>
-  <%= render 'stocks/list' %>
-<% end %>
+<div id="stock-list">
+  <% if !@tracked_stocks.empty? %>
+    <%= render 'stocks/list' %>
+  <% end %>
+</div>

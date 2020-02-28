@@ -20,4 +20,27 @@ class StocksController < ApplicationController
       end
     end
   end
+
+  def reflesh
+    @tracked_stocks = current_user.stocks
+    @user = current_user
+    Stock.set_latest_prices(@tracked_stocks)
+    
+    respond_to do |format|
+      format.js { render partial: 'stocks/list' }
+    end
+  end
+
+  def one_stock_reflesh
+    @stock = Stock.check_db(params[:ticker])
+    @stock.set_latest_price
+    @stock.save
+    @index = params[:index]
+    
+    respond_to do |format|
+      format.js { 
+        render partial: 'stocks/price'
+      }
+    end
+  end
 end
