@@ -20,4 +20,14 @@ class StocksController < ApplicationController
       end
     end
   end
+
+  def reflesh
+    @tracked_stocks = current_user.stocks
+    @user = current_user
+    Stock.set_latest_prices(@tracked_stocks)
+    
+    respond_to do |format|
+      format.js { render partial: 'stocks/list' }
+    end
+  end
 end
