@@ -3,26 +3,29 @@
 </div>
 
 
-<% if !@users.empty? %>
+<% if @users %>
   <div class="card card-header results-block">
-    <% @users.each do |user| %>
-      <strong>Email: </strong><%= user.email %>
-      <strong>First Name: </strong><%= user.first_name %>
-      <strong>Last Name: </strong><%= user.last_name %>
-      <% if current_user == user %>
-        <span class="badge badge-secondary">You</span>
-      <% elsif current_user.can_add_friend?(user) %>
-        <%= link_to 'Follow friend?', friendships_path(user: current_user, friend: user), 
-                                      class: "btn btn-sm btn-success", method: :post %>
-      <% else %>
-        <span class="badge badge-secondary">
-          <% if !current_user.under_friend_limit? %>
-            You have already 10 friends
-          <% end %>
-            Your friend
-        </span>
-      <% end %>
-      <br>
-    <% end %>
+    <table class="col-md-12">
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><strong>Name: </strong><%= user.full_name %></td>
+            <td><strong>Email:  </strong><%= user.email %></td>
+            <td><strong>Actions: </strong><%= link_to "View Profile", user_path(user), class: 'btn btn-sm btn-success' %>
+            <% if current_user.can_add_friend?(user) %>
+              <%= link_to 'Follow friend?', friendships_path(user: current_user, friend: user), 
+                                            class: "btn btn-sm btn-success", method: :post %>
+            <% else %>
+              <span class="badge badge-secondary">
+                <% if !current_user.under_friend_limit? %>
+                  You have already 10 friends
+                <% end %>
+                  Your friend
+              </span>
+            <% end %></td>
+          <tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 <% end %>

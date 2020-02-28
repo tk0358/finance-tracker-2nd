@@ -14,8 +14,9 @@ class UsersController < ApplicationController
 
   def search
     if params[:friend].present?
-      @users = User.search_email_or_name(params[:friend])
-      if !@users.empty?
+      @users = User.search(params[:friend])
+      @users = current_user.except_current_user(@users)
+      if @users
         respond_to do |format|
           format.js { render partial: 'users/friend_result' }
         end
