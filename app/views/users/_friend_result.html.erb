@@ -11,18 +11,20 @@
           <tr>
             <td><strong>Name: </strong><%= user.full_name %></td>
             <td><strong>Email:  </strong><%= user.email %></td>
-            <td><strong>Actions: </strong><%= link_to "View Portfolio", user_path(user), class: 'btn btn-sm btn-info' %>
-            <% if current_user.can_add_friend?(user) %>
-              <%= link_to 'Follow friend?', friendships_path(user: current_user, friend: user), 
-                                            class: "btn btn-sm btn-success", method: :post %>
-            <% else %>
-              <span class="badge badge-secondary">
-                <% if !current_user.under_friend_limit? %>
-                  You have already 10 friends
-                <% end %>
-                  Your friend
-              </span>
-            <% end %></td>
+            <td>
+              <strong>Actions: </strong><%= link_to "View Profile", user_path(user), class: 'btn btn-sm btn-info' %>
+              <% if current_user.can_add_friend?(user) %>
+                <%= link_to 'Follow friend?', friendships_path(friend: user), 
+                                              class: "btn btn-sm btn-success", method: :post %>
+              <% else %>
+                <span class="badge badge-secondary">
+                  <% if !current_user.under_friend_limit? %>
+                    You have already 10 friends
+                  <% end %>
+                    Your friend
+                </span>
+              <% end %>
+            </td>
           <tr>
         <% end %>
       </tbody>
